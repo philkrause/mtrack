@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap');
+
+body{
+background-color: black;
+color: green;
+}
+
+.data{
+  display:flex;
+}
+
+.legend{
+  display:flex;
+}
+.legend p{
+  font-size:1.5rem;
+  width:10rem;
+  font-family: 'Roboto Mono', monospace;
+
+}
+
+.data p{
+  width:10rem;
+  font-family: 'Roboto Mono', monospace;
+
+
+}
+
+.searcharea{
+  display:flex;
+  justify-content: space-evenly;
+  font-family: 'Roboto Mono', monospace;
+
+}
