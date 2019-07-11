@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
@@ -26,6 +27,16 @@ namespace mtrack
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+      services.AddAuthentication(options =>
+      {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+      }).AddJwtBearer(options =>
+      {
+        options.Authority = "Https://dev-p80dfakc.auth0.com";
+        options.Audience = "hLZx665uKnSg6f1Gfu2j7YQ8SUCmuFKF";
+      });
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
        .AddJsonOptions(options =>
       {
@@ -62,6 +73,9 @@ namespace mtrack
       }
       app.UseHealthChecks("/health");
       app.UseHttpsRedirection();
+      app.UseAuthentication();
+
+
       app.UseSwagger();
 
       // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 

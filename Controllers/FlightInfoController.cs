@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using mtrack.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace mtrack.Controllers
 {
 
   [Route("[controller]")]
+  [Authorize]
   public class FlightInfoController
   {
     private readonly DatabaseContext _context;

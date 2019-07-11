@@ -9,6 +9,9 @@ export default function Data() {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
 
+  if (!localStorage.getItem("access_token")) {
+    window.location.href = "/login"
+  }
 
 
   const axiosGet = () => {
@@ -37,6 +40,8 @@ export default function Data() {
   useEffect(() => {
     const storedTime = localStorage.getItem("timeStamp")
     const cachedData = localStorage.getItem("myData")
+
+
     if ((new Date().getTime() - storedTime > (5 * 60 * 1000)) || !cachedData) {
       console.log('API CALLING')
       axiosGet()
@@ -46,7 +51,6 @@ export default function Data() {
       setLoading(false)
     }
   }, [])
-
 
   const dataSort = (type) => {
     const sorted = [].concat(data)
@@ -90,8 +94,8 @@ export default function Data() {
                   <p>{m.sqk ? m.sqk : 'n/a'}</p>
                   <p>{m.icao ? m.icao : 'n/a'}</p>
                   <p>{m.type ? m.type : 'n/a'}</p>
-                  <p>{m.alt ? m.alt + 'ft' : 'n/a'}</p>
-                  <p>{m.spd ? m.spd + 'kn' : 'n/a'}</p>
+                  <p>{m.alt ? m.alt + 'ft.' : 'n/a'}</p>
+                  <p>{m.spd ? m.spd + 'kn.' : 'n/a'}</p>
                   <p><Moment fromNow="%d s">{new Date(parseInt(m.postime))}</Moment></p>
                   <p>{m.call ? m.call : 'n/a'}</p>
                   <p>{Number(m.lat).toFixed(5)}</p>

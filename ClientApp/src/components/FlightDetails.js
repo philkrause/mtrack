@@ -16,7 +16,7 @@ class FlightDetails extends Component {
 
             <p>Country: {this.props.cou ? this.props.cou : 'n/a'} </p>
 
-            <p>Type: {this.props.type} </p>
+            <p>Type: {this.props.type ? this.props.type : 'n/a'} </p>
 
             <p>Squawk: {this.props.sqk ? this.props.sqk : 'n/a'} </p>
 
@@ -27,9 +27,9 @@ class FlightDetails extends Component {
           <div>
             <p>Speed: {this.props.spd ? this.props.spd + 'kn' : 'n/a'} </p>
 
-            <p>Vertical Speed: {this.props.vsi ? this.props.vsi : 'n/a'} </p>
+            <p>Vertical Speed: {this.props.vsi ? this.props.vsi + 'kn' : 'n/a'} </p>
 
-            <p>Altitude: {this.props.alt ? this.props.alt : 'n/a'}</p>
+            <p>Altitude: {this.props.alt ? this.props.alt + 'ft' : 'n/a'}</p>
 
             <p>Wake Turbulence Category: {this.props.wtc ? this.props.wtc : 'n/a'}</p>
             <p>Track Angle: {this.props.trak ? this.props.trak + 'º' : 'n/a'} </p>
@@ -38,9 +38,10 @@ class FlightDetails extends Component {
             <p>Latitude: {this.props.lat ? this.props.lat + 'º' : 'n/a'} </p>
 
             <p>Longitude: {this.props.lon ? this.props.lon + 'º' : 'n/a'} </p>
+
             <p><Moment fromNow="hh:mm:ss">{new Date(parseInt(this.props.postime))}</Moment></p>
 
-            <p>GAltitude: {this.props.galt ? this.props.galt : 'n/a'} </p>
+            <p>GAltitude: {this.props.galt ? this.props.galt + 'ft' : 'n/a'} </p>
 
             <p>Transponder Type{this.props.trt}</p>
           </div>
