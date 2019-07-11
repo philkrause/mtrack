@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using mtrack.Models;
 
 namespace mtrack
 {
@@ -44,6 +45,6 @@ namespace mtrack
     {
       modelBuilder.HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
     }
-
+    public DbSet<FlightInfo> FlightTable { get; set; }
   }
 }

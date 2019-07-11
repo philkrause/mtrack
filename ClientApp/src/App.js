@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Data from './components/Data'
-import MapSetHooks from './components/MapSetHooks'
+import MapData from './components/MapData'
 import NavBar from './components/NavBar'
 
 
@@ -14,7 +14,7 @@ export default class App extends Component {
         <NavBar />
         <Switch>
           <Route path='/' exact component={Data} />
-          <Route path='/flightmap' exact component={MapSetHooks} />
+          <Route path='/flightmap/:flighticao' exact component={MapData} />
         </Switch>
       </Router>
 

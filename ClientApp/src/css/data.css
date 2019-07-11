@@ -5,30 +5,69 @@ background-color: black;
 color: green;
 }
 
+.nav-bar{
+  display:flex;
+  justify-content: space-evenly;
+  font-family: 'Roboto Mono', monospace;
+  border:solid 2px white;
+}
+
+
 .data{
   display:flex;
 }
 
-.legend{
-  display:flex;
-}
-.legend p{
-  font-size:1.5rem;
-  width:10rem;
-  font-family: 'Roboto Mono', monospace;
 
+a{
+text-decoration: none;
+color:green;
 }
+
+
+.legend button{
+  width:125px;
+  color:green;
+  background: none;
+  font-family: 'Roboto Mono', monospace;
+  font-size:22px;
+}
+
 
 .data p{
-  width:10rem;
+  width:125px;
   font-family: 'Roboto Mono', monospace;
-
+  font-size:12px;
+  text-align:center;
 
 }
 
-.searcharea{
+.one-flight{
   display:flex;
-  justify-content: space-evenly;
-  font-family: 'Roboto Mono', monospace;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap:wrap;
+}
 
+
+@media only screen and (max-width: 600px){
+  .data :nth-last-child(1){
+    font-size:0;
+    }
+    .data :nth-last-child(2){
+      font-size:0;
+      }
+      .data{
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+     
+    
+      }
+      .data p{
+        font-family: 'Roboto Mono', monospace;
+        font-size:18px;
+      }
+      .data a{
+       border-color:green;
+      }
 }

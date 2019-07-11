@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
+import Moment from 'react-moment'
 import '../css/data.css'
-import { faDrumstickBite } from '@fortawesome/free-solid-svg-icons';
 
 export default function Data() {
 
   const [data, setData] = useState([])
+  const [loading, setLoading] = useState(true)
+
+
 
   const axiosGet = () => {
     axios(
@@ -19,51 +23,82 @@ export default function Data() {
       }
     ).then(resp => {
       console.log(resp.data)
-      setData(resp.data.ac)
+      if (localStorage)
+        setData(resp.data.ac.filter(f => f.lat && f.lon))
+      localStorage.setItem('myData', JSON.stringify(resp.data.ac.filter(f => f.lat && f.lon)))
+      localStorage.setItem('timeStamp', new Date().getTime())
+      setLoading(false)
     })
   }
-  const datasort = (type) => {
-    [].concat(data)
+
+
+
+
+  useEffect(() => {
+    const storedTime = localStorage.getItem("timeStamp")
+    const cachedData = localStorage.getItem("myData")
+    if ((new Date().getTime() - storedTime > (5 * 60 * 1000)) || !cachedData) {
+      console.log('API CALLING')
+      axiosGet()
+    } else {
+      console.log('API PULLING CACHE')
+      setData(JSON.parse(cachedData))
+      setLoading(false)
+    }
+  }, [])
+
+
+  const dataSort = (type) => {
+    const sorted = [].concat(data)
       .sort((a, b) => {
-        if (a.type < b.type)
+        if (a[type] < b[type]) {
           return -1
-        if (b.type > a.type)
+        } else if (a[type] > b[type]) {
           return 1
-        return 0
+        } else {
+          return 0
+        }
       })
-    setData(data)
+    setData(sorted)
   }
-
-
 
   return (
     <>
       <div>
-        <button onClick={axiosGet}>Submit</button>
-        <button onClick={() => datasort('cou')}>Countries</button>
         <section className='legend'>
-          <p>Country</p>
-          <p>ICAO</p>
-          <p>Altitude</p>
-          <p>Speed</p>
-          <p>Last Reported</p>
-          <p>Lat.</p>
-          <p>Long.</p>
+          <button onClick={() => dataSort('cou')}>Military</button>
+          <button onClick={() => dataSort('lon')}>Squawk</button>
+          <button onClick={() => dataSort('icao')}>ICAO</button>
+          <button onClick={() => dataSort('icao')}>Type</button>
+          <button onClick={() => dataSort('alt')}>Alt</button>
+          <button onClick={() => dataSort('spd')}>Spd</button>
+          <button onClick={() => dataSort('postime')}>LastRep</button>
+          <button onClick={() => dataSort('postime')}>Call</button>
+          <button onClick={() => dataSort('lat')}>Lat</button>
+          <button onClick={() => dataSort('lon')}>Long</button>
+          <button onClick={() => dataSort('gnd')}>Grouded</button>
 
         </section>
+        {loading && 'Loading...'}
         {data.map((m, index) => {
 
           return (
             <>
-              <section className='data'>
-                <p>{m.cou}</p>
-                <p>{m.icao}</p>
-                <p>{m.alt}</p>
-                <p>{m.spd}</p>
-                <p>{m.postime}</p>
-                <p>{m.lat}</p>
-                <p>{m.lon}</p>
-              </section>
+              <Link to={{ pathname: `/flightmap/${m.icao}` }} >
+                <section className='data'>
+                  <p>{m.cou ? m.cou : 'n/a'}</p>
+                  <p>{m.sqk ? m.sqk : 'n/a'}</p>
+                  <p>{m.icao ? m.icao : 'n/a'}</p>
+                  <p>{m.type ? m.type : 'n/a'}</p>
+                  <p>{m.alt ? m.alt + 'ft' : 'n/a'}</p>
+                  <p>{m.spd ? m.spd + 'kn' : 'n/a'}</p>
+                  <p><Moment fromNow="%d s">{new Date(parseInt(m.postime))}</Moment></p>
+                  <p>{m.call ? m.call : 'n/a'}</p>
+                  <p>{Number(m.lat).toFixed(5)}</p>
+                  <p>{Number(m.lon).toFixed(5)}</p>
+                  <p>{m.gnd > 0 ? 'True' : 'False'}</p>
+                </section>
+              </Link>
             </>
           )
         })
@@ -73,4 +108,3 @@ export default function Data() {
 
   )
 }
-
