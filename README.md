@@ -1,4 +1,4 @@
-# Defualt Template for SDG .NET Course
+# Military Flight Tracker
 
 This is the default template for a simple .NET Core Web React App. This template has: 
 
