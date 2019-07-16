@@ -11,13 +11,11 @@ namespace mtrack.Controllers
 {
 
   [Route("[controller]")]
-  [Authorize]
   public class FlightInfoController
   {
     private readonly DatabaseContext _context;
 
     public FlightInfoController(DatabaseContext context)
-
     {
       _context = context;
     }
@@ -25,11 +23,19 @@ namespace mtrack.Controllers
     [HttpPost("addflight")]
     public ActionResult<FlightInfo> PostFlight([FromBody]FlightInfo flightinfo)
     {
-
       _context.FlightTable.Add(flightinfo);
       _context.SaveChanges();
       return flightinfo;
     }
 
+
+    [HttpGet("all")]
+    public ActionResult<List<FlightInfo>> GetAllFlights()
+    {
+      return _context.FlightTable.ToList();
+
+    }
+
   }
 }
+

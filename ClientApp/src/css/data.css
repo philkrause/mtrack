@@ -13,15 +13,30 @@ body #a0-lock.a0-theme-default .a0-panel *{
 background-color:black !important;
 }
 
-.nav-bar{
+.header{
   display:flex;
   justify-content: space-evenly;
+  align-items: center;
   font-family: 'Roboto Mono', monospace;
   border:solid 2px white;
 }
 
+.header a p{
+  margin:0;
+  padding:5px 0 0 0;
+}
+
+
+
 button :focus {
-  outline:0;
+  outline:0 !important; 
+  border:none !important;
+}
+
+button {
+  outline:0 !important; 
+  border:none !important;
+  background:none !important;
 }
 
 .data{
@@ -34,9 +49,13 @@ text-decoration: none;
 color:green;
 }
 
+.legend{
+ display:flex;
+}
+
 
 .legend button{
-  width:125px;
+  width:129px;
   color:green;
   background: none;
   font-family: 'Roboto Mono', monospace;
@@ -45,11 +64,15 @@ color:green;
 
 
 .data p{
-  width:125px;
+  width:129px;
   font-family: 'Roboto Mono', monospace;
-  font-size:12px;
+  font-size:15px;
   text-align:center;
 
+}
+
+a:hover{
+  transform: scale(1.3)
 }
 
 .one-flight{
@@ -57,10 +80,29 @@ color:green;
   align-items: center;
   justify-content: space-around;
   flex-wrap:wrap;
+  font-size: 20px;
+  padding-top:1px;
+}
+
+.mapboxgl-popup-content{
+  background:black !important;
+  border-radius:2px;
+}
+
+.mapboxgl-popup-content button{
+color:green;}
+
+.flight-marker{
+  background-color:black;
+}
+
+.flight-marker p{
+  padding: 0;
+  margin:0;
 }
 
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 900px){
   .data :nth-last-child(1){
     font-size:0;
     }
@@ -69,7 +111,6 @@ color:green;
       }
       .data{
         display:flex;
-        flex-direction: column;
         align-items: center;
      
     
@@ -77,6 +118,7 @@ color:green;
       .data p{
         font-family: 'Roboto Mono', monospace;
         font-size:18px;
+        padding:3rem;
       }
       .data a{
        border-color:green;

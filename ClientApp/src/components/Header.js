@@ -9,8 +9,8 @@ export default function Header() {
 
   return (
     <>
-      <h1>International Military Flight Tracker</h1>
-      <section className='nav-bar'>
+      <h1>  Military Flight Tracker</h1>
+      <section className='header'>
         {/* <Link to={{ pathname: '/' }}> <img className='logo' src={legologo} /></Link> */}
         <Link to={{ pathname: '/' }}><p><FontAwesomeIcon icon={faHome} size='1x' /> Home</p></Link>
         <Link to={{ pathname: '/flightinfo' }}><p><FontAwesomeIcon icon={faPlane} size='1x' /> Flight Info</p></Link>

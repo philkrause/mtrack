@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using mtrack;
@@ -9,9 +10,10 @@ using mtrack;
 namespace sdgreacttemplate.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20190712135330_ChangedDBvalues")]
+    partial class ChangedDBvalues
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,22 +89,6 @@ namespace sdgreacttemplate.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FlightTable");
-                });
-
-            modelBuilder.Entity("mtrack.Models.UserFlights", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ICAO");
-
-                    b.Property<DateTime>("SaveTime");
-
-                    b.Property<string>("User");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserFlightTable");
                 });
 #pragma warning restore 612, 618
         }
