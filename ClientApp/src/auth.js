@@ -1,6 +1,5 @@
 import auth0 from 'auth0-js'
 import history from './history'
-import logo from './images/jet.jpeg'
 const DOMAIN = 'dev-p80dfakc.auth0.com'
 const CLIENTID = 'hLZx665uKnSg6f1Gfu2j7YQ8SUCmuFKF'
 

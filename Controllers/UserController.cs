@@ -33,7 +33,7 @@ namespace mtrack.Controllers
     }
 
     [HttpPost("{icao}/adduserflight")]
-    public ActionResult<UserFlights> PostFlight([FromQuery] string icao)
+    public ActionResult<UserFlights> PostFlight([FromRoute] string icao)
     {
       var userId = _getUserId(User);
       var data = new UserFlights

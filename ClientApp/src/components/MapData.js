@@ -4,14 +4,86 @@ import ReactMapGL, { Marker, Popup } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import FlightDetails from './FlightDetails'
 import redJet from '../images/redjet.png'
-import auth from '../auth';
+import auth from '../auth'
+import ReactLoading from 'react-loading'
+import algeria from '../images/algeria.png'
+import australia from '../images/australia.png'
+import austria from '../images/austria.png'
+import bahrain from '../images/bahrain.png'
+import belgium from '../images/belgium.png'
+import brazil from '../images/brazil.png'
+import canada from '../images/canada.png'
+import chile from '../images/chile.png'
+import czechrepublic from '../images/czechrepublic.png'
+import denmark from '../images/denmark.png'
+import ecuador from '../images/ecuador.png'
+import finland from '../images/finland.png'
+import france from '../images/france.png'
+import germany from '../images/germany.png'
+import greece from '../images/greece.png'
+import hungary from '../images/hungary.png'
+import india from '../images/india.png'
+import ireland from '../images/ireland.png'
+import italy from '../images/italy.png'
+import israel from '../images/israel.png'
+import malaysia from '../images/malaysia.png'
+import poland from '../images/poland.png'
+import japan from '../images/japan.png'
+import netherlands from '../images/netherlands.png'
+import saudiarabia from '../images/saudiarabia.png'
+import slovakia from '../images/slovakia.png'
+import spain from '../images/spain.png'
+import sweden from '../images/sweden.png'
+import switzerland from '../images/switzerland.png'
+import taiwan from '../images/taiwan.png'
+import turkey from '../images/turkey.png'
+import unitedkingdom from '../images/unitedkingdom.png'
+import nato from '../images/unitednations.png'
+import unitedstates from '../images/unitedstates.png'
+import qatar from '../images/qatar.png'
+
+const flags = {
+  algeria,
+  australia,
+  austria,
+  bahrain,
+  belgium,
+  brazil,
+  canada,
+  chile,
+  czechrepublic,
+  denmark,
+  ecuador,
+  finland,
+  france,
+  germany,
+  greece,
+  hungary,
+  india,
+  ireland,
+  israel,
+  italy,
+  japan,
+  malaysia,
+  nato,
+  netherlands,
+  poland,
+  saudiarabia,
+  slovakia,
+  spain,
+  sweden,
+  switzerland,
+  taiwan,
+  turkey,
+  unitedkingdom,
+  unitedstates,
+  qatar
+}
 
 export default function MapSetHooks(props) {
 
   const [loading, setLoading] = useState(true)
-  const [land, setLand] = useState('')
   const [flight, setFlight] = useState('')
-  const [backup, setBackup] = useState('')
 
 
   const [data, setData] = useState(
@@ -26,8 +98,12 @@ export default function MapSetHooks(props) {
     zoom: 6
   })
 
-  const [userData, setUserData] = useState({})
+  const postFlightForUser = () => {
+    // TODO : add logic to only post if the user is logged in
+    axios.post(`/user/${flightICAO}/adduserflight`, {}, { headers: { "Authorization": auth.authorizationHeader() } })
+  }
 
+  const fpost = (data) => axios.post('flightinfo/addflight', data)
 
   const axiosGet = () => {
     console.log("running get")
@@ -42,26 +118,12 @@ export default function MapSetHooks(props) {
         }
       }
     ).then(resp => {
-      console.log(resp.data.ac)
-      if (!resp.data.ac) {
-        const data = JSON.parse(sessionStorage.getItem("myData")).filter(f => f.icao == flightICAO)
-        console.log({ data })
-        // setData(props.location.state.allData.filter(x => x.icao == flightICAO))
-        // console.log('using link state data')
-      } else {
+      // resp.data = undefined
+      if (resp && resp.data && resp.data.ac) {
         setData(resp.data.ac[0])
         // setUserData(sessionStorage.getItem(access_token), resp.data.ac[0].icao)
         const data = resp.data.ac[0]
-        const fpost = () => axios.post('flightinfo/addflight', data)
-        fpost()
-        const axiosUserPost = () => {
-          axios.post({
-            method: 'POST',
-            url: `user/${flightICAO}/adduserflight`,
-            headers: { "Authorization": "Bearer" + auth.authorizationHeader() }
-          })
-        }
-        axiosUserPost()
+        fpost(data)
         sessionStorage.setItem(dataKey, JSON.stringify(data))
         sessionStorage.setItem(dataKey + '-timeStampFlight', new Date().getTime())
         setViewPort(vp => {
@@ -72,11 +134,16 @@ export default function MapSetHooks(props) {
         })
         setLoading(false)
         console.log("myinfo", data)
+      } else {
+        const sessionData = JSON.parse(sessionStorage.getItem("myData")).filter(f => f.icao === flightICAO)
+        console.log("sessionData", sessionData)
+        setData(sessionData[0])
       }
+
     })
-
-
   }
+
+
 
 
 
@@ -84,10 +151,12 @@ export default function MapSetHooks(props) {
     console.log("running effect")
     const storedTime = sessionStorage.getItem(dataKey + '-timeStampFlight')
     const cachedData = sessionStorage.getItem(dataKey)
+
+    postFlightForUser()
+
     if (new Date().getTime() - storedTime > (5 * 60 * 1000) || !cachedData) {
       console.log('api calling')
       axiosGet()
-
     } else {
       console.log('using session')
       const data = JSON.parse(cachedData)
@@ -102,54 +171,87 @@ export default function MapSetHooks(props) {
 
   }, [])
 
+  const render = () => {
+    if (loading === true) {
+      return (
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <ReactLoading type={"bars"} color={"rgb(0,131,240)"} height={'20%'} width={'20%'} />
+        </div>
+      )
+    } else {
+      return (
+        <>
+
+          <ReactMapGL
+            {...viewport}
+            mapboxApiAccessToken={'pk.eyJ1IjoiZGRqYW5nbyIsImEiOiJjanh1bGoxbGExNmxnM21udmxlZDE0ZXd1In0.bJagpDIel0t0x73k748YtQ'}
+            mapStyle='mapbox://styles/ddjango/cjy5w2fle12rc1dp6ibud3rtw'
+            onViewportChange={viewport => {
+              setViewPort(viewport)
+            }}
+            width='100vw'
+            height='415px'
+          >
+            <Marker latitude={parseFloat(data.lat)} longitude={parseFloat(data.lon)}>
+              <button
+                style={{ border: 'none' }}
+                onClick={e => {
+                  e.preventDefault();
+                  setFlight(data)
+                }}
+              >
+                <img style={{ width: '25px', transform: `rotate(${data.trak + 'deg'})` }} src={redJet} />
+              </button>
+            </Marker>
+            {flight ? (
+              <Popup
+                latitude={parseFloat(data.lat)}
+                longitude={parseFloat(data.lon)}
+                onClose={() => {
+                  setFlight(null)
+                }}
+              >
+                <div className='flight-marker'>
+                  <img style={{ width: '25px', margin: '0' }} src={flags[data.cou.replace(/\s/g, '').toLowerCase()]} />
+                  <p>Country: {data.cou ? data.cou : 'n/a'}</p>
+                  <p>Call: {data.call ? data.call : 'n/a'}</p>
+                  <p>Speed: {data.spd ? data.spd + 'kn' : 'n/a'}</p>
+                  <p>Altitude: {data.alt ? data.alt + 'ft' : 'n/a'}</p>
+                </div>
+              </Popup>
+            ) : null}
+          </ReactMapGL>
+          <img style={{ width: '55px', margin: '0' }} src={flags[data.cou.replace(/\s/g, '').toLowerCase()]} />
+          <FlightDetails
+            {...data} />
+        </>
+      )
+    }
+
+  }
+
 
   return (
     <>
-      <h1 style={{ display: 'flex', justifyContent: 'center' }}>{land}</h1>
-      <ReactMapGL
-        {...viewport}
-        mapboxApiAccessToken={'pk.eyJ1IjoiZGRqYW5nbyIsImEiOiJjanh1bGoxbGExNmxnM21udmxlZDE0ZXd1In0.bJagpDIel0t0x73k748YtQ'}
-        mapStyle='mapbox://styles/ddjango/cjxuosfk59f2q1cntkdm8m9g6'
-        onViewportChange={viewport => {
-          setViewPort(viewport)
-        }}
-        width='100vw'
-        height='350px'
-      >
-        <Marker latitude={parseFloat(data.lat)} longitude={parseFloat(data.lon)}>
-          <button
-            style={{ border: 'none' }}
-            onClick={e => {
-              e.preventDefault();
-              setFlight(data)
-            }}
-          >
-            <img style={{ width: '18px', transform: `rotate(${data.trak + 'deg'})` }} src={redJet} />
-          </button>
-        </Marker>
-        {flight ? (
-          <Popup
-            latitude={parseFloat(data.lat)}
-            longitude={parseFloat(data.lon)}
-            onClose={() => {
-              setFlight(null)
-            }}
-          >
-            <div className='flight-marker'>
-              <p>Country: {data.cou ? data.cou : 'n/a'}</p>
-              <p>Call: {data.call ? data.call : 'n/a'}</p>
-              <p>Speed: {data.spd ? data.spd + 'kn' : 'n/a'}</p>
-              <p>Altitude :{data.alt ? data.alt + 'ft' : 'n/a'}</p>
-            </div>
-          </Popup>
-        ) : null}
-      </ReactMapGL>
-      {loading && <h1>Loading...</h1>}
 
-      <FlightDetails
-        {...data} />
+      <div>{render()}</div>
+
     </>
   )
 
 }
 
+
+
+{/* <button onClick={(e) => {
+  e.preventDefault()
+  setViewPort(
+    {
+      longitude: parseFloat(flight.lat),
+      latitude: parseFloat(flight.lon),
+      zoom: 7,
+      transitionDuration: 5000,
+      transitionInterpolator: new FlyToInterpolator()
+    }
+  )
+}}></button> */}
