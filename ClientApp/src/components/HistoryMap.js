@@ -95,9 +95,10 @@ export default function MapSetHooks(props) {
 
 
   const [data, setData] = useState(
-    { lat: 0, lon: 0 }
+    { lon: 0, lat: 0 }
   )
-  const flightICAO = props.match.params.flighticao
+  const flightICAO = props.match.params.icao
+
   const dataKey = `${flightICAO}-data`
 
   const [viewport, setViewPort] = useState({
@@ -106,78 +107,36 @@ export default function MapSetHooks(props) {
     zoom: 6
   })
 
-  const postFlightForUser = () => {
-    // TODO : add logic to only post if the user is logged in
-    axios.post(`/user/${flightICAO}/adduserflight`, {}, { headers: { "Authorization": auth.authorizationHeader() } })
-  }
 
-  const fpost = (data) => axios.post('flightinfo/addflight', data)
 
   const axiosGet = () => {
     console.log("running get")
-    axios(
-      {
-        method: 'GET',
-        url: `https://adsbexchange-com1.p.rapidapi.com/icao/${flightICAO}/`,
-        headers:
-        {
-          'X-RapidAPI-Host': 'adsbexchange-com1.p.rapidapi.com',
-          'X-RapidAPI-Key': 'fbd6ba527bmsha3e7a0dc93136f2p1915dejsnc0ffb99db3c0'
-        }
+    axios.get(`/user/${flightICAO}/oneuserflight`, {
+      headers: {
+        "Authorization": auth.authorizationHeader()
       }
+    }
     ).then(resp => {
-      // resp.data = undefined
-      if (resp && resp.data && resp.data.ac) {
-        setData(resp.data.ac[0])
-        // setUserData(sessionStorage.getItem(access_token), resp.data.ac[0].icao)
-        const data = resp.data.ac[0]
-        fpost(data)
-        sessionStorage.setItem(dataKey, JSON.stringify(data))
-        sessionStorage.setItem(dataKey + '-timeStampFlight', new Date().getTime())
-        setViewPort(vp => {
-          console.log("svp", { vp }, { data })
-          vp.latitude = parseFloat(data.lat)
-          vp.longitude = parseFloat(data.lon)
-          return vp
-        })
-        setLoading(false)
-        console.log("myinfo", data)
-      } else {
-        const sessionData = JSON.parse(sessionStorage.getItem("myData")).filter(f => f.icao === flightICAO)
-        console.log("sessionData", sessionData)
-        setData(sessionData[0])
-      }
+      console.log(resp)
+      setData(resp.data)
+      const data = resp.data
 
-    })
-  }
-
-
-
-
-
-  useEffect(() => {
-    console.log("running effect")
-    const storedTime = sessionStorage.getItem(dataKey + '-timeStampFlight')
-    const cachedData = sessionStorage.getItem(dataKey)
-
-    postFlightForUser()
-
-    if (new Date().getTime() - storedTime > (5 * 60 * 1000) || !cachedData) {
-      console.log('api calling')
-      axiosGet()
-    } else {
-      console.log('using session')
-      const data = JSON.parse(cachedData)
-      setData(data)
       setViewPort(vp => {
+        console.log("svp", { vp }, { data })
         vp.latitude = parseFloat(data.lat)
         vp.longitude = parseFloat(data.lon)
         return vp
       })
       setLoading(false)
-    }
 
+    })
+  }
+
+  useEffect(() => {
+    console.log("running effect")
+    axiosGet()
   }, [])
+
 
   const render = () => {
     if (loading === true) {

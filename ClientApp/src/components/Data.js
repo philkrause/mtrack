@@ -11,6 +11,7 @@ import australia from '../images/australia.png'
 import austria from '../images/austria.png'
 import bahrain from '../images/bahrain.png'
 import belgium from '../images/belgium.png'
+import bolivia from '../images/bolivia.png'
 import brazil from '../images/brazil.png'
 import canada from '../images/canada.png'
 import chile from '../images/chile.png'
@@ -30,6 +31,7 @@ import poland from '../images/poland.png'
 import japan from '../images/japan.png'
 import malaysia from '../images/malaysia.png'
 import netherlands from '../images/netherlands.png'
+import newzealand from '../images/newzealand.png'
 import saudiarabia from '../images/saudiarabia.png'
 import slovakia from '../images/slovakia.png'
 import spain from '../images/spain.png'
@@ -50,6 +52,7 @@ const flags = {
   austria,
   bahrain,
   belgium,
+  bolivia,
   brazil,
   canada,
   chile,
@@ -69,6 +72,7 @@ const flags = {
   malaysia,
   nato,
   netherlands,
+  newzealand,
   poland,
   saudiarabia,
   slovakia,

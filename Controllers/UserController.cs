@@ -33,7 +33,7 @@ namespace mtrack.Controllers
     }
 
     [HttpPost("{icao}/adduserflight")]
-    public ActionResult<UserFlights> PostFlight([FromRoute] string icao)
+    public async Task<ActionResult<UserFlights>> PostFlight([FromRoute] string icao)
     {
       var userId = _getUserId(User);
       var data = new UserFlights
@@ -42,7 +42,7 @@ namespace mtrack.Controllers
         ICAO = icao
       };
       _context.UserFlightTable.Add(data);
-      _context.SaveChanges();
+      await _context.SaveChangesAsync();
       return data;
     }
 
@@ -52,6 +52,13 @@ namespace mtrack.Controllers
     {
       var all = _context.UserFlightTable.ToList();
       return all;
+    }
+
+    [HttpGet("{icao}/oneuserflight")]
+    public ActionResult<FlightInfo> GetOneFlight([FromRoute] string icao)
+    {
+      var locate = _context.FlightTable.FirstOrDefault(f => f.ICAO == icao);
+      return locate;
     }
 
 
