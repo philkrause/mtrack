@@ -28,8 +28,10 @@ import ireland from '../images/ireland.png'
 import italy from '../images/italy.png'
 import israel from '../images/israel.png'
 import malaysia from '../images/malaysia.png'
+import mexico from '../images/mexico.png'
 import newzealand from '../images/newzealand.png'
 import poland from '../images/poland.png'
+import portugal from '../images/portugal.png'
 import japan from '../images/japan.png'
 import netherlands from '../images/netherlands.png'
 import saudiarabia from '../images/saudiarabia.png'
@@ -69,10 +71,12 @@ const flags = {
   italy,
   japan,
   malaysia,
+  mexico,
   nato,
   netherlands,
   newzealand,
   poland,
+  portugal,
   saudiarabia,
   slovakia,
   slovenia,
