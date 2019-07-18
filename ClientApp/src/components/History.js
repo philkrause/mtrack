@@ -32,6 +32,7 @@ import netherlands from '../images/netherlands.png'
 import newzealand from '../images/newzealand.png'
 import saudiarabia from '../images/saudiarabia.png'
 import slovakia from '../images/slovakia.png'
+import slovenia from '../images/slovenia.png'
 import spain from '../images/spain.png'
 import sweden from '../images/sweden.png'
 import switzerland from '../images/switzerland.png'
@@ -72,6 +73,7 @@ const flags = {
   poland,
   saudiarabia,
   slovakia,
+  slovenia,
   spain,
   sweden,
   switzerland,
@@ -123,6 +125,12 @@ export default function History() {
     return setData(sorted)
   }
 
+  // const intSortR = (type) => {
+  //   const sorted = [].concat(data).sort((a, b) => a[type] - b[type])
+  //   console.log({ sorted })
+  //   return setData(sorted)
+  // }
+
   const render = () => {
     if (loading === true) {
       return (
@@ -140,7 +148,7 @@ export default function History() {
             <button onClick={() => dataSort('icao')}>Type</button>
             <button onClick={() => intSort('alt')}>Alt</button>
             <button onClick={() => intSort('spd')}>Spd</button>
-            <button onClick={() => dataSort('postime')}>LastRep</button>
+            <button onClick={() => intSort('postime')}>RecDate</button>
             <button onClick={() => dataSort('call')}>Call</button>
             <button onClick={() => intSort('lat')}>Lat</button>
             <button onClick={() => intSort('lon')}>Long</button>

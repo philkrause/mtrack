@@ -34,6 +34,7 @@ import japan from '../images/japan.png'
 import netherlands from '../images/netherlands.png'
 import saudiarabia from '../images/saudiarabia.png'
 import slovakia from '../images/slovakia.png'
+import slovenia from '../images/slovenia.png'
 import spain from '../images/spain.png'
 import sweden from '../images/sweden.png'
 import switzerland from '../images/switzerland.png'
@@ -73,6 +74,7 @@ const flags = {
   newzealand,
   poland,
   saudiarabia,
+  slovenia,
   slovakia,
   spain,
   sweden,
