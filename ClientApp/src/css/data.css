@@ -256,6 +256,7 @@ color:green;}
         border-color:rgb(5, 147, 212) 
 
       }
-      .data a{
+      .title{
+        display:none;
       }
-}
+    }
