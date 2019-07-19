@@ -5,8 +5,9 @@ import axios from 'axios'
 import Moment from 'react-moment'
 import '../css/data.css'
 import ReactMapGL, { Marker } from 'react-map-gl'
-import ReactLoading from 'react-loading';
+import ReactLoading from 'react-loading'
 import algeria from '../images/algeria.png'
+import argentina from '../images/argentina.png'
 import australia from '../images/australia.png'
 import austria from '../images/austria.png'
 import bahrain from '../images/bahrain.png'
@@ -27,6 +28,7 @@ import india from '../images/india.png'
 import ireland from '../images/ireland.png'
 import italy from '../images/italy.png'
 import israel from '../images/israel.png'
+import kuwait from '../images/kuwait.png'
 import poland from '../images/poland.png'
 import portugal from '../images/portugal.png'
 import japan from '../images/japan.png'
@@ -34,6 +36,7 @@ import malaysia from '../images/malaysia.png'
 import mexico from '../images/mexico.png'
 import netherlands from '../images/netherlands.png'
 import newzealand from '../images/newzealand.png'
+import nigeria from '../images/nigeria.png'
 import saudiarabia from '../images/saudiarabia.png'
 import slovakia from '../images/slovakia.png'
 import slovenia from '../images/slovenia.png'
@@ -53,6 +56,7 @@ const flags = {
   algeria,
   australia,
   austria,
+  argentina,
   bahrain,
   belgium,
   bolivia,
@@ -72,11 +76,13 @@ const flags = {
   israel,
   italy,
   japan,
+  kuwait,
   malaysia,
   mexico,
   nato,
   netherlands,
   newzealand,
+  nigeria,
   poland,
   portugal,
   saudiarabia,
@@ -96,9 +102,7 @@ export default function Data() {
 
 
 
-  if (!auth.isAuthenticated()) {
-    window.location.href = "/login"
-  }
+
 
   const [viewport, setViewPort] = useState({
     longitude: 25,
@@ -265,7 +269,6 @@ export default function Data() {
             }
           </div>
         </>
-
 
 
       )

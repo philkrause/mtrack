@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import ReactLoading from 'react-loading'
 import axios from 'axios'
-import auth from '../auth'
 import Moment from 'react-moment'
 import algeria from '../images/algeria.png'
 import australia from '../images/australia.png'
 import austria from '../images/austria.png'
+import argentina from '../images/argentina.png'
 import bahrain from '../images/bahrain.png'
 import belgium from '../images/belgium.png'
 import bolivia from '../images/bolivia.png'
@@ -25,6 +25,7 @@ import india from '../images/india.png'
 import ireland from '../images/ireland.png'
 import italy from '../images/italy.png'
 import israel from '../images/israel.png'
+import kuwait from '../images/kuwait.png'
 import poland from '../images/poland.png'
 import portugal from '../images/portugal.png'
 import japan from '../images/japan.png'
@@ -32,6 +33,7 @@ import malaysia from '../images/malaysia.png'
 import mexico from '../images/mexico.png'
 import netherlands from '../images/netherlands.png'
 import newzealand from '../images/newzealand.png'
+import nigeria from '../images/nigeria.png'
 import saudiarabia from '../images/saudiarabia.png'
 import slovakia from '../images/slovakia.png'
 import slovenia from '../images/slovenia.png'
@@ -47,6 +49,7 @@ import qatar from '../images/qatar.png'
 
 const flags = {
   algeria,
+  argentina,
   australia,
   austria,
   bahrain,
@@ -68,11 +71,13 @@ const flags = {
   israel,
   italy,
   japan,
+  kuwait,
   malaysia,
   mexico,
   nato,
   netherlands,
   newzealand,
+  nigeria,
   poland,
   portugal,
   saudiarabia,
@@ -92,9 +97,9 @@ const flags = {
 
 export default function History() {
 
-  if (!auth.isAuthenticated()) {
-    window.location.href = "/login"
-  }
+  // if (!auth.isAuthenticated()) {
+  //   window.location.href = "/login"
+  // }
 
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)

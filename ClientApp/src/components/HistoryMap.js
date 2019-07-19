@@ -7,6 +7,7 @@ import redJet from '../images/redjet.png'
 import auth from '../auth'
 import ReactLoading from 'react-loading'
 import algeria from '../images/algeria.png'
+import argentina from '../images/argentina.png'
 import australia from '../images/australia.png'
 import austria from '../images/austria.png'
 import bahrain from '../images/bahrain.png'
@@ -33,7 +34,9 @@ import newzealand from '../images/newzealand.png'
 import poland from '../images/poland.png'
 import portugal from '../images/portugal.png'
 import japan from '../images/japan.png'
+import kuwait from '../images/kuwait.png'
 import netherlands from '../images/netherlands.png'
+import nigeria from '../images/nigeria.png'
 import saudiarabia from '../images/saudiarabia.png'
 import slovakia from '../images/slovakia.png'
 import slovenia from '../images/slovenia.png'
@@ -51,6 +54,7 @@ const flags = {
   algeria,
   australia,
   austria,
+  argentina,
   bahrain,
   belgium,
   bolivia,
@@ -70,11 +74,13 @@ const flags = {
   israel,
   italy,
   japan,
+  kuwait,
   malaysia,
   mexico,
   nato,
   netherlands,
   newzealand,
+  nigeria,
   poland,
   portugal,
   saudiarabia,
@@ -92,9 +98,9 @@ const flags = {
 
 export default function MapSetHooks(props) {
 
-  if (!auth.isAuthenticated()) {
-    window.location.href = "/login"
-  }
+  // if (!auth.isAuthenticated()) {
+  //   window.location.href = "/login"
+  // }
 
   const [loading, setLoading] = useState(true)
   const [flight, setFlight] = useState('')
