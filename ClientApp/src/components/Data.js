@@ -10,6 +10,7 @@ import algeria from '../images/algeria.png'
 import argentina from '../images/argentina.png'
 import australia from '../images/australia.png'
 import austria from '../images/austria.png'
+import azerbaijan from '../images/azerbaijan.png'
 import bahrain from '../images/bahrain.png'
 import belgium from '../images/belgium.png'
 import bolivia from '../images/bolivia.png'
@@ -19,6 +20,7 @@ import chile from '../images/chile.png'
 import czechrepublic from '../images/czechrepublic.png'
 import denmark from '../images/denmark.png'
 import ecuador from '../images/ecuador.png'
+import egypt from '../images/egypt.png'
 import finland from '../images/finland.png'
 import france from '../images/france.png'
 import germany from '../images/germany.png'
@@ -37,6 +39,7 @@ import mexico from '../images/mexico.png'
 import netherlands from '../images/netherlands.png'
 import newzealand from '../images/newzealand.png'
 import nigeria from '../images/nigeria.png'
+import oman from '../images/oman.png'
 import saudiarabia from '../images/saudiarabia.png'
 import slovakia from '../images/slovakia.png'
 import slovenia from '../images/slovenia.png'
@@ -57,6 +60,7 @@ const flags = {
   australia,
   austria,
   argentina,
+  azerbaijan,
   bahrain,
   belgium,
   bolivia,
@@ -66,6 +70,7 @@ const flags = {
   czechrepublic,
   denmark,
   ecuador,
+  egypt,
   finland,
   france,
   germany,
@@ -83,6 +88,7 @@ const flags = {
   netherlands,
   newzealand,
   nigeria,
+  oman,
   poland,
   portugal,
   saudiarabia,
@@ -100,8 +106,9 @@ const flags = {
 
 export default function Data() {
 
-
-
+  if (!auth.isAuthenticated()) {
+    window.location.href = "/login"
+  }
 
 
   const [viewport, setViewPort] = useState({
@@ -241,7 +248,7 @@ export default function Data() {
               <button onClick={() => dataSort('call')}>Call</button>
               <button onClick={() => intSort('lat')}>Lat</button>
               <button onClick={() => intSort('lon')}>Long</button>
-              <button onClick={() => dataSort('gnd')}>Grouded</button>
+              <button onClick={() => dataSort('gnd')}>Grounded</button>
 
             </section>
             {data.map((m, index) => {

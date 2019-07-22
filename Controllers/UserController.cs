@@ -71,7 +71,7 @@ namespace mtrack.Controllers
       .Select(s => s.ICAO);
 
 
-      var data = _context.FlightTable.Where(f => icaoUser.Contains(f.ICAO)).OrderBy(o => o.SaveTime);
+      var data = _context.FlightTable.Where(f => icaoUser.Contains(f.ICAO)).OrderByDescending(o => o.SaveTime);
       return data;
 
     }

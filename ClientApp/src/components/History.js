@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import ReactLoading from 'react-loading'
 import axios from 'axios'
+import auth from '../auth'
 import Moment from 'react-moment'
 import algeria from '../images/algeria.png'
 import australia from '../images/australia.png'
 import austria from '../images/austria.png'
 import argentina from '../images/argentina.png'
+import azerbaijan from '../images/azerbaijan.png'
 import bahrain from '../images/bahrain.png'
 import belgium from '../images/belgium.png'
 import bolivia from '../images/bolivia.png'
@@ -16,6 +18,7 @@ import chile from '../images/chile.png'
 import czechrepublic from '../images/czechrepublic.png'
 import denmark from '../images/denmark.png'
 import ecuador from '../images/ecuador.png'
+import egypt from '../images/egypt.png'
 import finland from '../images/finland.png'
 import france from '../images/france.png'
 import germany from '../images/germany.png'
@@ -34,6 +37,7 @@ import mexico from '../images/mexico.png'
 import netherlands from '../images/netherlands.png'
 import newzealand from '../images/newzealand.png'
 import nigeria from '../images/nigeria.png'
+import oman from '../images/oman.png'
 import saudiarabia from '../images/saudiarabia.png'
 import slovakia from '../images/slovakia.png'
 import slovenia from '../images/slovenia.png'
@@ -52,6 +56,7 @@ const flags = {
   argentina,
   australia,
   austria,
+  azerbaijan,
   bahrain,
   belgium,
   bolivia,
@@ -61,6 +66,7 @@ const flags = {
   czechrepublic,
   denmark,
   ecuador,
+  egypt,
   finland,
   france,
   germany,
@@ -78,6 +84,7 @@ const flags = {
   netherlands,
   newzealand,
   nigeria,
+  oman,
   poland,
   portugal,
   saudiarabia,
@@ -97,9 +104,9 @@ const flags = {
 
 export default function History() {
 
-  // if (!auth.isAuthenticated()) {
-  //   window.location.href = "/login"
-  // }
+  if (!auth.isAuthenticated()) {
+    window.location.href = "/login"
+  }
 
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
