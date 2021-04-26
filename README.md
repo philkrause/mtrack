@@ -1,6 +1,6 @@
 # Military Flight Tracker
 
-Mapping Unfiltered Military Flight Data
+Mapping Unfiltered Military Flight Data in Real-Time
 
 ![](mtrack.gif)
 
