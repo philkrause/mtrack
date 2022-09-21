@@ -2,12 +2,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.AspNetCore.SpaServices;
+using Microsoft.AspNetCore.SpaServices.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -37,8 +38,9 @@ namespace mtrack
         options.Authority = "Https://dev-p80dfakc.auth0.com";
         options.Audience = "hLZx665uKnSg6f1Gfu2j7YQ8SUCmuFKF";
       });
+
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-       .AddJsonOptions(options =>
+       .AddNewtonsoftJson(options =>
       {
         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
       });
