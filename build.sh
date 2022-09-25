@@ -7,7 +7,7 @@ cp dockerfile ./bin/Release/netcoreapp3.1/publish
 
 docker build -t mtrack-image ./bin/Release/netcoreapp3.1/publish
 
-sudo docker tag mtrack-image registry.heroku.com/mflighttrack/web
+docker tag mtrack-image registry.heroku.com/mflighttrack/web
 
 docker push registry.heroku.com/mflighttrack/web
 

@@ -21,7 +21,8 @@ namespace mtrack
     {
       var _connection = connection.Replace("postgres://", String.Empty);
       var output = Regex.Split(_connection, ":|@|/");
-      return $"server={output[2]};database={output[4]};User Id={output[0]}; password={output[1]}; port={output[3]}, SSL=false; SslMode=Disable;";
+      Console.WriteLine(output[3])
+      return $"server={output[2]};database={output[4]};User Id={output[0]}; password={output[1]}; port={output[3]}";
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
