@@ -21,7 +21,7 @@ namespace mtrack
     {
       var _connection = connection.Replace("postgres://", String.Empty);
       var output = Regex.Split(_connection, ":|@|/");
-      Console.WriteLine(output[3])
+      Console.WriteLine(output)
       return $"server={output[2]};database={output[4]};User Id={output[0]}; password={output[1]}; port={output[3]}";
     }
 
