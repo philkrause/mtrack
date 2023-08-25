@@ -104,11 +104,12 @@ const flags = {
   qatar
 }
 
+
 export default function Data() {
 
-  if (!auth.isAuthenticated()) {
-    window.location.href = "/login"
-  }
+  // if (!auth.isAuthenticated()) {
+  //   window.location.href = "/login"
+  // }
 
 
   const [viewport, setViewPort] = useState({
@@ -130,8 +131,8 @@ export default function Data() {
         method: 'GET',
         url: 'https://adsbexchange-com1.p.rapidapi.com/mil/',
         headers: {
-          'X-RapidAPI-Host': 'adsbexchange-com1.p.rapidapi.com',
-          'X-RapidAPI-Key': 'fbd6ba527bmsha3e7a0dc93136f2p1915dejsnc0ffb99db3c0'
+          'X-RapidAPI-Key': process.env.ADSB_TOKEN,
+          'X-RapidAPI-Host': 'adsbexchange-com1.p.rapidapi.com'
         }
       }
     ).then(resp => {
@@ -198,7 +199,7 @@ export default function Data() {
         <>
           <ReactMapGL
             {...viewport}
-            mapboxApiAccessToken={'pk.eyJ1IjoiZGRqYW5nbyIsImEiOiJjanh1bGoxbGExNmxnM21udmxlZDE0ZXd1In0.bJagpDIel0t0x73k748YtQ'}
+            mapboxApiAccessToken={process.env.MAPBOX_TOKEN}
             mapStyle='mapbox://styles/ddjango/cjy5w2fle12rc1dp6ibud3rtw'
             onViewportChange={viewport => {
               setViewPort(viewport)

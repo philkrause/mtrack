@@ -104,9 +104,9 @@ const flags = {
 
 export default function History() {
 
-  if (!auth.isAuthenticated()) {
-    window.location.href = "/login"
-  }
+  // if (!auth.isAuthenticated()) {
+  //   window.location.href = "/login"
+  // }
 
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
@@ -114,7 +114,6 @@ export default function History() {
   useEffect(() => {
     console.log('LOADING...')
     axios.get(`/user/alluserflights`).then(resp => {
-      console.log(resp.data)
       setData(resp.data)
       setLoading(false)
     })
@@ -137,7 +136,6 @@ export default function History() {
 
   const intSort = (type) => {
     const sorted = [].concat(data).sort((a, b) => b[type] - a[type])
-    console.log({ sorted })
     return setData(sorted)
   }
 

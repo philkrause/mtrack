@@ -104,9 +104,9 @@ const flags = {
 
 export default function MapSetHooks(props) {
 
-  if (!auth.isAuthenticated()) {
-    window.location.href = "/login"
-  }
+  // if (!auth.isAuthenticated()) {
+  //   window.location.href = "/login"
+  // }
 
   const [loading, setLoading] = useState(true)
   const [flight, setFlight] = useState('')
@@ -124,12 +124,12 @@ export default function MapSetHooks(props) {
     zoom: 6
   })
 
-  const postFlightForUser = () => {
-    // TODO : add logic to only post if the user is logged in
-    axios.post(`/user/${flightICAO}/adduserflight`, {}, { headers: { "Authorization": auth.authorizationHeader() } })
-  }
+  // const postFlightForUser = () => {
+  //   // TODO : add logic to only post if the user is logged in
+  //   axios.post(`/user/${flightICAO}/adduserflight`, {}, { headers: { "Authorization": auth.authorizationHeader() } })
+  // }
 
-  const fpost = (data) => axios.post('flightinfo/addflight', data)
+  //const fpost = (data) => axios.post('flightinfo/addflight', data)
 
   const axiosGet = () => {
     console.log("running get")
@@ -137,10 +137,9 @@ export default function MapSetHooks(props) {
       {
         method: 'GET',
         url: `https://adsbexchange-com1.p.rapidapi.com/icao/${flightICAO}/`,
-        headers:
-        {
-          'X-RapidAPI-Host': 'adsbexchange-com1.p.rapidapi.com',
-          'X-RapidAPI-Key': 'fbd6ba527bmsha3e7a0dc93136f2p1915dejsnc0ffb99db3c0'
+        headers: {
+          'X-RapidAPI-Key': process.env.ADSB_TOKEN,
+          'X-RapidAPI-Host': 'adsbexchange-com1.p.rapidapi.com'
         }
       }
     ).then(resp => {
@@ -149,22 +148,22 @@ export default function MapSetHooks(props) {
         setData(resp.data.ac[0])
         // setUserData(sessionStorage.getItem(access_token), resp.data.ac[0].icao)
         const data = resp.data.ac[0]
-        fpost(data)
+        //fpost(data)
         sessionStorage.setItem(dataKey, JSON.stringify(data))
         sessionStorage.setItem(dataKey + '-timeStampFlight', new Date().getTime())
         setViewPort(vp => {
-          console.log("svp", { vp }, { data })
+          //console.log("svp", { vp }, { data })
           vp.latitude = parseFloat(data.lat)
           vp.longitude = parseFloat(data.lon)
           return vp
         })
         setLoading(false)
-        console.log("myinfo", data)
+        //console.log("myinfo", data)
       } else {
         const sessionData = JSON.parse(sessionStorage.getItem("myData")).filter(f => f.icao === flightICAO)
         console.log("sessionData", sessionData)
         setViewPort(vp => {
-          console.log("svp", { vp }, { data })
+          //console.log("svp", { vp }, { data })
           vp.latitude = parseFloat(data.lat)
           vp.longitude = parseFloat(data.lon)
           return vp
@@ -185,7 +184,7 @@ export default function MapSetHooks(props) {
     const storedTime = sessionStorage.getItem(dataKey + '-timeStampFlight')
     const cachedData = sessionStorage.getItem(dataKey)
 
-    postFlightForUser()
+    //postFlightForUser()
 
     if (new Date().getTime() - storedTime > (5 * 60 * 1000) || !cachedData) {
       console.log('api calling')
@@ -217,7 +216,7 @@ export default function MapSetHooks(props) {
 
           <ReactMapGL
             {...viewport}
-            mapboxApiAccessToken={'pk.eyJ1IjoiZGRqYW5nbyIsImEiOiJjanh1bGoxbGExNmxnM21udmxlZDE0ZXd1In0.bJagpDIel0t0x73k748YtQ'}
+            mapboxApiAccessToken={process.env.MAPBOX_TOKEN}
             mapStyle='mapbox://styles/ddjango/cjy5w2fle12rc1dp6ibud3rtw'
             onViewportChange={viewport => {
               setViewPort(viewport)

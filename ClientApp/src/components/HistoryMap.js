@@ -104,9 +104,9 @@ const flags = {
 
 export default function MapSetHooks(props) {
 
-  if (!auth.isAuthenticated()) {
-    window.location.href = "/login"
-  }
+  // if (!auth.isAuthenticated()) {
+  //   window.location.href = "/login"
+  // }
 
   const [loading, setLoading] = useState(true)
   const [flight, setFlight] = useState('')
@@ -130,17 +130,15 @@ export default function MapSetHooks(props) {
   const axiosGet = () => {
     console.log("running get")
     axios.get(`/user/${flightICAO}/oneuserflight`, {
-      headers: {
-        "Authorization": auth.authorizationHeader()
-      }
+      // headers: {
+      //   "Authorization": auth.authorizationHeader()
+      // }
     }
     ).then(resp => {
-      console.log(resp)
       setData(resp.data)
       const data = resp.data
 
       setViewPort(vp => {
-        console.log("svp", { vp }, { data })
         vp.latitude = parseFloat(data.lat)
         vp.longitude = parseFloat(data.lon)
         return vp
@@ -169,7 +167,7 @@ export default function MapSetHooks(props) {
 
           <ReactMapGL
             {...viewport}
-            mapboxApiAccessToken={'pk.eyJ1IjoiZGRqYW5nbyIsImEiOiJjanh1bGoxbGExNmxnM21udmxlZDE0ZXd1In0.bJagpDIel0t0x73k748YtQ'}
+            mapboxApiAccessToken={process.env.MAPBOX_TOKEN}
             mapStyle='mapbox://styles/ddjango/cjy5w2fle12rc1dp6ibud3rtw'
             onViewportChange={viewport => {
               setViewPort(viewport)
